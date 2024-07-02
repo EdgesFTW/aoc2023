@@ -3,6 +3,7 @@ use std::{
     thread, usize,
 };
 
+#[allow(dead_code)]
 pub fn sum_calibration_pt1(input: String) -> i64 {
     let mut sum: i64 = 0;
     for line in input.lines() {
@@ -26,6 +27,7 @@ pub fn sum_calibration_pt1(input: String) -> i64 {
     return sum;
 }
 
+#[allow(dead_code)]
 pub fn sum_calibration_pt2(input: String) -> i64 {
     const THREADS: usize = 8;
     let mut main_sum: i64 = 0;

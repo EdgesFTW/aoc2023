@@ -2,6 +2,7 @@ use std::{i32::MIN, sync::Arc, thread};
 
 use regex::Regex;
 
+#[allow(dead_code)]
 pub fn sum_id_pt1(input: String) -> i64 {
     const MAX_RED: i32 = 12;
     const MAX_GREEN: i32 = 13;
@@ -50,6 +51,7 @@ pub fn sum_id_pt1(input: String) -> i64 {
     return sum;
 }
 
+#[allow(dead_code)]
 pub fn sum_id_pt2(input: String) -> i64 {
     const NUM_THREADS: usize = 7;
     let mut main_sum = 0;
