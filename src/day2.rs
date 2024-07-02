@@ -93,7 +93,9 @@ pub fn sum_id_pt2(input: String) -> i64 {
                                     max_blue = quantity;
                                 }
                             }
-                            _ => {}
+                            _ => {
+                                println!("Invalid color found somehow")
+                            }
                         }
                     }
                     let power = max_red * max_blue * max_green;
