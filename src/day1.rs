@@ -222,7 +222,7 @@ pub fn sum_calibration_pt2(input: String) -> i64 {
 
 #[cfg(test)]
 mod tests {
-    use crate::{day1::sum_calibration_pt1, day1::sum_calibration_pt2};
+    use super::*;
 
     #[test]
     fn test1() {

@@ -1,6 +1,7 @@
 use core::panic;
 use std::{collections::HashSet, usize};
 
+#[allow(dead_code)]
 pub fn sum_id_pt1(input: String) -> i64 {
     let arr: Vec<_> = input
         .lines()
@@ -10,71 +11,58 @@ pub fn sum_id_pt1(input: String) -> i64 {
     let num_lines: usize = arr.len();
     let mut seen = HashSet::new();
     let mut sum = 0;
+    let rows_range = 0..num_lines as i32;
+    let col_range = 0..line_width as i32;
+    let deltas: Vec<(i32, i32)> = (0..9).map(|e| (e / 3 - 1, e % 3 - 1)).collect();
     for i in 0..(num_lines as i32) {
         for j in 0..(line_width as i32) {
             assert!(arr[i as usize].len() == line_width);
             let cur_char = arr[i as usize][j as usize];
+            // filter out non-symbols
             match cur_char {
                 '.' => continue,
                 '0'..='9' => continue,
-                _ => {
-                    for dx in -1..=1 {
-                        for dy in -1..=1 {
-                            match (dx, dy) {
-                                (0, 0) => continue,
-                                (dx, _) if (j + dx < 0) || (j + dx >= (line_width as i32)) => {
-                                    continue;
-                                }
-                                (_, dy) if (i + dy < 0) || (i + dy >= (num_lines as i32)) => {
-                                    continue;
-                                }
-                                (dx, dy)
-                                    if (j + dx >= 0)
-                                        && (j + dx < (line_width as i32))
-                                        && (i + dy >= 0)
-                                        && (i + dy < (num_lines as i32)) =>
-                                {
-                                    if !('0'..='9')
-                                        .contains(&arr[(i + dy) as usize][(j + dx) as usize])
-                                    {
-                                        continue;
-                                    }
-                                    let mut upperbound = (j + dx) as usize;
-                                    for ind in ((j + dx + 1) as usize)..(line_width) {
-                                        if !('0'..='9').contains(&arr[(i + dy) as usize][ind]) {
-                                            upperbound = ind - 1;
-                                            break;
-                                        }
-                                        upperbound = line_width - 1;
-                                    }
-                                    let mut lowerbound = (j + dx) as usize;
-                                    for ind in ((0)..=((j + dx - 1) as usize)).rev() {
-                                        if !('0'..='9').contains(&arr[(i + dy) as usize][ind]) {
-                                            lowerbound = ind + 1;
-                                            break;
-                                        }
-                                        lowerbound = 0;
-                                    }
-                                    match arr[(i + dy) as usize][lowerbound..=upperbound]
-                                        .iter()
-                                        .collect::<String>()
-                                        .parse::<u32>()
-                                    {
-                                        Ok(x) => {
-                                            if seen.contains(&(i + dy, lowerbound, upperbound)) {
-                                            } else {
-                                                // unique id is (most sig row, most sig col)
-                                                seen.insert((i + dy, lowerbound, upperbound));
-                                                sum += x;
-                                            }
-                                        }
-                                        Err(x) => println!("Error: {x}"),
-                                    }
-                                }
-                                (dx, dy) => panic!("Unknown indexing. dx: {dx} dy: {dy}"),
-                            }
+                _ => (),
+            }
+
+            for (dx, dy) in &deltas {
+                // check if index falls within grid
+                if !rows_range.contains(&(dy + i)) || !col_range.contains(&(dx + j)) {
+                    continue;
+                }
+                if !('0'..='9').contains(&arr[(i + dy) as usize][(j + dx) as usize]) {
+                    continue;
+                }
+                let mut upperbound = (j + dx) as usize;
+                for ind in ((j + dx + 1) as usize)..(line_width) {
+                    if !('0'..='9').contains(&arr[(i + dy) as usize][ind]) {
+                        upperbound = ind - 1;
+                        break;
+                    }
+                    upperbound = line_width - 1;
+                }
+                let mut lowerbound = (j + dx) as usize;
+                for ind in ((0)..=((j + dx - 1) as usize)).rev() {
+                    if !('0'..='9').contains(&arr[(i + dy) as usize][ind]) {
+                        lowerbound = ind + 1;
+                        break;
+                    }
+                    lowerbound = 0;
+                }
+                match arr[(i + dy) as usize][lowerbound..=upperbound]
+                    .iter()
+                    .collect::<String>()
+                    .parse::<u32>()
+                {
+                    Ok(x) => {
+                        if seen.contains(&(i + dy, lowerbound, upperbound)) {
+                        } else {
+                            // unique id is (most sig row, most sig col)
+                            seen.insert((i + dy, lowerbound, upperbound));
+                            sum += x;
                         }
                     }
+                    Err(x) => println!("Internal Error: {x}"),
                 }
             }
         }
@@ -82,6 +70,7 @@ pub fn sum_id_pt1(input: String) -> i64 {
     sum.into()
 }
 
+#[allow(dead_code)]
 pub fn sum_id_pt2(input: String) -> i64 {
     let arr: Vec<_> = input
         .lines()
@@ -192,7 +181,7 @@ pub fn sum_id_pt2(input: String) -> i64 {
 
 #[cfg(test)]
 mod tests {
-    use crate::day3::{sum_id_pt1, sum_id_pt2};
+    use super::*;
 
     #[test]
     fn test1() {

@@ -117,7 +117,7 @@ pub fn sum_id_pt2(input: String) -> i64 {
 
 #[cfg(test)]
 mod tests {
-    use crate::{day2::sum_id_pt1, day2::sum_id_pt2};
+    use super::*;
 
     #[test]
     fn test1() {
