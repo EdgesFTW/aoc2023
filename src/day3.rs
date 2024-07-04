@@ -2,7 +2,7 @@ use core::panic;
 use std::{collections::HashSet, usize};
 
 #[allow(dead_code)]
-pub fn sum_id_pt1(input: String) -> i64 {
+pub fn day3_pt1(input: String) -> i64 {
     let arr: Vec<_> = input
         .lines()
         .map(|e| e.chars().collect::<Vec<_>>())
@@ -71,7 +71,7 @@ pub fn sum_id_pt1(input: String) -> i64 {
 }
 
 #[allow(dead_code)]
-pub fn sum_id_pt2(input: String) -> i64 {
+pub fn day3_pt2(input: String) -> i64 {
     let arr: Vec<_> = input
         .lines()
         .map(|e| e.chars().collect::<Vec<_>>())
@@ -197,7 +197,7 @@ mod tests {
 .664.598..
 "
         .to_string();
-        let result = sum_id_pt1(input.clone());
+        let result = day3_pt1(input.clone());
         println!("{input}");
         println!("Result: {result}");
         assert!(result == 4361);
@@ -208,7 +208,7 @@ mod tests {
 ...*......
 "
         .to_string();
-        let result = sum_id_pt1(input.clone());
+        let result = day3_pt1(input.clone());
         println!("{input}");
         println!("Result: {result}");
         assert!(result == 467);
@@ -221,7 +221,7 @@ mod tests {
 ....*.....
 "
         .to_string();
-        let result = sum_id_pt1(input.clone());
+        let result = day3_pt1(input.clone());
         println!("{input}");
         println!("Result: {result}");
         assert!(result == 114);
@@ -233,7 +233,7 @@ mod tests {
 467..114
 "
         .to_string();
-        let result = sum_id_pt1(input.clone());
+        let result = day3_pt1(input.clone());
         println!("{input}");
         println!("Result: {result}");
         assert!(result == 114);
@@ -253,7 +253,7 @@ mod tests {
 .664.598..
 "
         .to_string();
-        let result = sum_id_pt2(input.clone());
+        let result = day3_pt2(input.clone());
         println!("{input}");
         println!("Result: {result}");
         assert!(result == 467835);

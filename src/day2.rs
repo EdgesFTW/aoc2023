@@ -3,7 +3,7 @@ use std::{i32::MIN, sync::Arc, thread};
 use regex::Regex;
 
 #[allow(dead_code)]
-pub fn sum_id_pt1(input: String) -> i64 {
+pub fn day2_pt1(input: String) -> i64 {
     const MAX_RED: i32 = 12;
     const MAX_GREEN: i32 = 13;
     const MAX_BLUE: i32 = 14;
@@ -52,7 +52,47 @@ pub fn sum_id_pt1(input: String) -> i64 {
 }
 
 #[allow(dead_code)]
-pub fn sum_id_pt2(input: String) -> i64 {
+pub fn day2_pt2(input: String) -> i64 {
+    const NUM_THREADS: usize = 7;
+    let mut sum = 0;
+    let lines = input.lines().collect::<Vec<_>>();
+    let re = Regex::new(r"([0-9]+) (red|green|blue)").unwrap();
+
+    for line in lines {
+        let mut max_red: i32 = MIN;
+        let mut max_green: i32 = MIN;
+        let mut max_blue: i32 = MIN;
+        for (_, [q_str, color_str]) in re.captures_iter(line).map(|e| e.extract()) {
+            let quantity: i32 = q_str.parse().unwrap();
+            match color_str {
+                "red" => {
+                    if quantity > max_red {
+                        max_red = quantity;
+                    }
+                }
+                "green" => {
+                    if quantity > max_green {
+                        max_green = quantity;
+                    }
+                }
+                "blue" => {
+                    if quantity > max_blue {
+                        max_blue = quantity;
+                    }
+                }
+                _ => {
+                    println!("Invalid color found somehow")
+                }
+            }
+        }
+        let power = max_red * max_blue * max_green;
+        sum += power as i64;
+    }
+    return sum;
+}
+
+#[allow(dead_code)]
+pub fn day2_pt2_parallel(input: String) -> i64 {
     const NUM_THREADS: usize = 7;
     let mut main_sum = 0;
     let lines = input.lines().collect::<Vec<_>>();
@@ -128,7 +168,7 @@ Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
 "
         .to_string();
-        assert!(sum_id_pt1(input) == 8);
+        assert!(day2_pt1(input) == 8);
     }
     #[test]
     fn test2() {
@@ -139,6 +179,6 @@ Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red
 Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green
 "
         .to_string();
-        assert!(sum_id_pt2(input) == 2286);
+        assert!(day2_pt2(input) == 2286);
     }
 }

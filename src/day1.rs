@@ -4,7 +4,7 @@ use std::{
 };
 
 #[allow(dead_code)]
-pub fn pt1(input: String) -> i64 {
+pub fn day1_pt1(input: String) -> i64 {
     let mut sum: i64 = 0;
     for line in input.lines() {
         let mut first = -1;
@@ -27,7 +27,7 @@ pub fn pt1(input: String) -> i64 {
     return sum;
 }
 #[allow(dead_code)]
-pub fn pt2_parallel(input: String) -> i64 {
+pub fn day1_pt2_parallel(input: String) -> i64 {
     const THREADS: usize = 8;
     let mut main_sum: i64 = 0;
     let loc_stat = Box::leak(Box::new(input));
@@ -219,7 +219,7 @@ pub fn pt2_parallel(input: String) -> i64 {
 }
 
 #[allow(dead_code)]
-pub fn pt2(input: String) -> i64 {
+pub fn day1_pt2(input: String) -> i64 {
     const THREADS: usize = 8;
     let mut sum: i64 = 0;
     let loc_stat = Box::leak(Box::new(input));
@@ -395,7 +395,7 @@ mod tests {
             pqr3stu8vwx
             a1b2c3d4e5f
             treb7uchet";
-        assert!(pt1(input.to_owned()) == 142)
+        assert!(day1_pt1(input.to_owned()) == 142)
     }
 
     #[test]
@@ -404,7 +404,7 @@ mod tests {
             pqr3stu8vwx
             a1b2c3d4e5f
             treb7uchet";
-        assert!(pt2(input.to_owned()) == 142)
+        assert!(day1_pt2(input.to_owned()) == 142)
     }
 
     #[test]
@@ -416,13 +416,13 @@ mod tests {
             4nineeightseven2
             zoneight234
             7pqrstsixteen";
-        assert!(pt2(input.to_owned()) == 281)
+        assert!(day1_pt2(input.to_owned()) == 281)
     }
 
     #[test]
     fn test4() {
         let input = "threefourtwone";
-        assert!(pt2(input.to_owned()) == 31)
+        assert!(day1_pt2(input.to_owned()) == 31)
     }
     #[test]
     fn test5() {
@@ -430,7 +430,7 @@ mod tests {
             pqr3stu8vwx
             a1b2c3d4e5f
             treb7uchet";
-        assert!(pt2_parallel(input.to_owned()) == 142)
+        assert!(day1_pt2_parallel(input.to_owned()) == 142)
     }
 
     #[test]
@@ -442,12 +442,12 @@ mod tests {
             4nineeightseven2
             zoneight234
             7pqrstsixteen";
-        assert!(pt2_parallel(input.to_owned()) == 281)
+        assert!(day1_pt2_parallel(input.to_owned()) == 281)
     }
 
     #[test]
     fn test7() {
         let input = "threefourtwone";
-        assert!(pt2_parallel(input.to_owned()) == 31)
+        assert!(day1_pt2_parallel(input.to_owned()) == 31)
     }
 }

@@ -1,5 +1,5 @@
 #[allow(dead_code)]
-pub fn pt1(input: String) -> i64 {
+pub fn day4_pt1(input: String) -> i64 {
     let lines: Vec<_> = input.lines().collect();
     let mut sum = 0;
     for line in lines {
@@ -37,7 +37,7 @@ pub fn pt1(input: String) -> i64 {
 }
 
 #[allow(dead_code)]
-pub fn pt2(input: String) -> i64 {
+pub fn day4_pt2(input: String) -> i64 {
     let lines: Vec<_> = input.lines().collect();
     let mut copies: Vec<u32> = vec![1; lines.len()];
     for (i, line) in lines.iter().enumerate() {
@@ -87,7 +87,7 @@ Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
 "
         .to_string();
-        let result = pt1(input.clone());
+        let result = day4_pt1(input.clone());
         println!("{input}");
         println!("Result: {result}");
         assert!(result == 13);
@@ -103,7 +103,7 @@ Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
 "
         .to_string();
-        let result = pt2(input.clone());
+        let result = day4_pt2(input.clone());
         println!("{input}");
         println!("Result: {result}");
         assert!(result == 30);
